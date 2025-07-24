@@ -1,3 +1,26 @@
+## Instruction 
+
+I have used NestJS, prisma(database connection), swagger (API documentation)
+
+you need to create .env file for the connections with db and also for the JWT
+for example:
+DATABASE_URL="postgresql://root:root@localhost:5432/yourDBname"
+JWT_SECRET="YOUR KEY"
+
+to be able to test the API you need 
+-first to register use: (register api)
+-second copy the access_token and put it in (authorize) top right in swagger 
+-then you will be able to use the functions(APIs)
+
+P.S. THE APP NEED IMPORVEMENTS:
+need to add messages in every api
+need to add uni test
+in some of the file i have added (ik heb het op dit moment zo gedaan voor de snelheid)
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+this is unacceptable and the code should be type-safe and i should create custom type 
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
