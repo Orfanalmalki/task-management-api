@@ -12,11 +12,9 @@ import { Status } from 'generated/prisma';
 export class TasksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(userId: string, status: Status, skip: number, take: number) {
+  async findAll(userId: string, status: Status) {
     return this.prisma.task.findMany({
       where: { userId, status },
-      skip,
-      take,
     });
   }
 
