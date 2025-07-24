@@ -21,7 +21,6 @@ export class AuthService {
       throw new UnauthorizedException('Email already in use');
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const hashedPassword: string = await bcrypt.hash(dto.password, 10);
 
     await this.prisma.user.create({
@@ -41,7 +40,6 @@ export class AuthService {
     });
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const isMatch = await bcrypt.compare(dto.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
