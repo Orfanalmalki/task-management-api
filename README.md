@@ -1,25 +1,58 @@
-## Instruction 
+## Instruction/Setup
 
-I have used NestJS, prisma(database connection), swagger (API documentation)
+I have used NestJS, prisma(database connection), swagger (API documentation), UUID, JWT
 
-you need to create .env file for the connections with db and also for the JWT
-for example:
-DATABASE_URL="postgresql://root:root@localhost:5432/yourDBname"
-JWT_SECRET="YOUR KEY"
 
-to be able to test the API you need 
--first to register use: (register api)
--second copy the access_token and put it in (authorize) top right in swagger 
--then you will be able to use the functions(APIs)
+## Setup
 
-P.S. THE APP NEED IMPORVEMENTS:
-need to add messages in every api
-need to add uni test
-in some of the file i have added (ik heb het op dit moment zo gedaan voor de snelheid)
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-this is unacceptable and the code should be type-safe and i should create custom type 
+1. **Install dependencies**  
+   ```
+   npm install
+   ```
+
+2. **Set up the database using Prisma**  
+   - Make sure the db(PostgreSQL/Mysql/others) is running locally.
+   - Initialize the database with:
+     ```
+     npx prisma migrate dev --name init
+     ```
+   - For more details, see the Prisma docs: https://www.prisma.io/docs
+
+3. **Create a `.env` file** in the root directory with the following content:
+   ```
+   DATABASE_URL="postgresql://root:root@localhost:5432/yourDBname"
+   JWT_SECRET="your-secret-key"
+   ```
+
+4. **Run the app**  
+   ```
+   npm run start
+   ```
+
+
+---
+
+## How to Test the API (using Swagger)
+
+1. Register a user using the `/auth/register` endpoint.
+2. Copy the `access_token` from the response.
+3. Click the "Authorize" button in the top-right corner of Swagger UI.
+4. Paste the token to unlock protected routes and test the APIs.
+
+---
+
+## Notes Improvement
+
+- All APIs WORKS GOOD BUT Some API responses don’t return clear messages yet. These should be added for better clarity.
+- Unit tests are missing. proper tests should still be implemented.
+- I’ve used temporary ESLint disable comments:
+  ```
+  /* eslint-disable @typescript-eslint/no-unsafe-argument */
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+  ```
+  This is not ideal. The code needs to be cleaned up and made type-safe with proper custom types.
+
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
