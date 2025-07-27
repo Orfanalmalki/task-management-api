@@ -6,11 +6,11 @@ import { JwtStrategy } from './jwt-strategy';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthController } from './auth.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from '../users/users.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
-    UsersModule,
+    UserModule,
     PassportModule,
     PassportModule,
     JwtModule.registerAsync({
