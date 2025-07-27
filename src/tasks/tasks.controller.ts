@@ -23,8 +23,11 @@ import {
   ApiTags,
   ApiQuery,
   ApiOperation,
+  ApiOkResponse,
+  ApiParam,
 } from '@nestjs/swagger';
 import { Status } from 'generated/prisma';
+import { TaskResponseDto } from './dto/task-response.dto';
 
 @ApiTags('Tasks')
 @ApiBearerAuth('access-token')
@@ -39,7 +42,10 @@ export class TasksController {
     summary: 'New task',
     description: 'Creates a new task',
   })
-  create(@Body() createTaskDto: CreateTaskDto, @Request() req: any) {
+  create(
+    @Body() createTaskDto: CreateTaskDto,
+    @Request() req: any,
+  ): Promise<TaskResponseDto> {
     const userId = req.user.sub;
     if (!userId) throw new UnauthorizedException('User ID missing in request');
     return this.tasksService.create(createTaskDto, userId);
@@ -57,18 +63,33 @@ export class TasksController {
     summary: 'Find all tasks with specific status',
     description: 'Find all tasks with specific status',
   })
-  findAll(@Request() req: any, @Query('status') status: Status) {
+  @ApiOkResponse({
+    type: TaskResponseDto,
+    isArray: true,
+  })
+  findAll(
+    @Request() req: any,
+    @Query('status') status: Status,
+  ): Promise<TaskResponseDto[]> {
     const userId = req.user.sub;
     return this.tasksService.findAll(userId, status);
   }
 
-  //FIND TASK BY I
+  //FIND TASK BY ID
   @Get(':id')
   @ApiOperation({
     summary: 'Find specific task with ID',
     description: 'Find specific task with ID',
   })
-  findOne(@Param('id') id: string, @Request() req: any) {
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the task',
+  })
+  @ApiOkResponse({ type: TaskResponseDto })
+  findOne(
+    @Param('id') id: string,
+    @Request() req: any,
+  ): Promise<TaskResponseDto> {
     const userId = req.user.sub;
     return this.tasksService.findOne(id, userId);
   }
@@ -83,7 +104,7 @@ export class TasksController {
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
     @Request() req: any,
-  ) {
+  ): Promise<TaskResponseDto> {
     const userId = req.user.sub;
     return this.tasksService.update(id, updateTaskDto, userId);
   }
